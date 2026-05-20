@@ -1,0 +1,18 @@
+Pursuit OCR Lap Tracker Fonts & Colours
+
+Fonts
+
+H1: Roboto Condensed Bold 96
+- Title, Race Time
+
+Body: Roboto Condensed Bold 36
+- Name, subtitles
+
+Colours
+- Background: 1C1C1C
+- Text: (Light Bkg) : 000000, (Dark), FFFFFF
+- 1ST: FFE0A5
+- 2ND: DADADA
+- 3RD: E5B798
+- 4TH: 474747
+

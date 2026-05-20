@@ -1,0 +1,51 @@
+#race-container
+{
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.race-position
+{
+    grid-area: position;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+}
+
+.racer-name
+{
+    grid-area: racerName;
+    font-size: 2em;
+    margin: 5px 0 0 0;
+}
+
+.race-time
+{
+    grid-area: time;
+    font-size: 2em;
+    margin: 0;
+}
+
+.lap-type
+{
+    grid-area: type;
+    margin: 0 0 0 5px;
+}
+
+.bike-card
+{
+    display: grid;
+    grid-template-columns: repeat(2, 250px);
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "position racerName"
+    "position time"
+    "position type";
+    background-color: gainsboro;
+    margin: 5px;
+}

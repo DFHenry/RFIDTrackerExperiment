@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script> -->
+    <!-- <link rel="stylesheet" type="text/css" href="/styles.css" /> -->
+    <style>
+        :root
+        {
+            --bgColor: #1c1c1c;
+            --textColor: #fff;
+            --1stColor: #FEE0A5;
+            --2ndColor: #DADADA;
+            --3rdColor: #E5B798;
+            --4thColor: #474747;
+            --pursuitPink: #d55b8f;
+            --pursuitYellow: #faa929;
+            --pursuitDarkPink: #881c4b;
+            --pursuitDarkYellow: #c67d08;
+        }
+
+        @font-face 
+        {
+            font-family: "Roboto Condensed", sans-serif;
+            src: url(https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap);
+        }
+
+        html
+        {
+            background-color: var(--bgColor);
+        }
+
+        h1
+        {
+            font-family: "Roboto Condensed", sans-serif;
+            font-size: 2em;
+            color: var(--textColor);
+        }
+
+        h2
+        {
+            font-family: "Roboto Condensed", sans-serif;
+            font-size: 4em;
+            margin: 8px 0;
+            color: var(--textColor);
+        }
+
+        p
+        {
+            font-family: "Roboto Condensed", sans-serif;
+            color: var(--textColor);
+        }
+
+        button
+        {
+            background-image: linear-gradient(345deg, var(--pursuitPink), var(--pursuitYellow), var(--pursuitPink));
+            border: 2px solid var(--pursuitDarkPink);
+            border-radius: 8px;
+            color: var(--textColor);
+            padding: 10px;
+        }
+
+        #title
+        {
+            display: flex;
+            justify-content: center;
+        }
+
+        #controls
+        {
+            display: flex;
+            justify-content: center;
+        }
+
+        #stopWatch
+        {
+            display: flex;
+            justify-content: center;
+            /* align-items: center; */
+        }
+
+        #race-container
+        {
+            /* border: 1px solid black; */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .race-position
+        {
+            grid-area: position;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            font-size: 3em;
+        }
+
+        .racer-name
+        {
+            grid-area: racerName;
+            font-size: 2em;
+            margin: 5px 0 0 0;
+        }
+
+        .race-time
+        {
+            grid-area: time;
+            font-size: 2em;
+            margin: 0;
+        }
+
+        .lap-type
+        {
+            grid-area: type;
+            margin: 0 0 0 5px;
+        }
+
+        .bike-card
+        {
+            display: grid;
+            grid-template-columns: repeat(2, 250px);
+            grid-template-rows: auto;
+            grid-template-areas: 
+            "position racerName"
+            "position time"
+            "count type";
+            background-color: gainsboro;
+            margin: 5px;
+            border-radius: 16px;
+            animation-name: bike-card-anim;
+            animation-duration: 1s;
+        }
+
+        .bike-card p
+        {
+            color: black;
+        }
+
+        #bike1
+        {
+            background-color: var(--1stColor);
+        }
+        #bike1 p
+        {
+            animation-name: bike-text-anim-black;
+            animation-duration: 1s;
+        }
+
+        #bike2
+        {
+            background-color: var(--2ndColor);
+        }
+
+        #bike2 p
+        {
+            animation-name: bike-text-anim-black;
+            animation-duration: 1s;
+        }
+
+        #bike3
+        {
+            background-color: var(--3rdColor);
+        }
+
+        #bike3 p
+        {
+            animation-name: bike-text-anim-black;
+            animation-duration: 1s;
+        }
+
+        #bike4
+        {
+            background-color: var(--4thColor);
+        }
+
+        #bike4 p
+        {
+            color: var(--textColor);
+            animation-name: bike-text-anim-white;
+            animation-duration: 1s;
+        }
+
+        @keyframes bike-card-anim
+        {
+            0% {width: 0;}
+            100% {width: 500px;}
+        }
+
+        @keyframes bike-text-anim-black
+        {
+            0% {color: transparent;}
+            40% {color: transparent;}
+            80%{color: var(--bgColor);}
+        }
+        @keyframes bike-text-anim-white
+        {
+            0% {color: transparent;}
+            40% {color: transparent;}
+            80%{color: var(--textColor);}
+        }
+    </style>
+    <title>Lap Counter</title>
+</head>
+<body>
+    <h1 id="title">Pursuit OCR - Pedal Bike Lap Counter</h1>
+
+    <div id="controls">
+        <button id="startBtn">Start Race</button>
+    </div>
+
+    <h2 id="stopWatch">00:00:00</h2>
+
+    <div id="sample"></div>
+
+    <div id="race-container">
+        <div class="bike-card" id="bike1">
+            <p class="race-position">1st</p>
+            <p class="racer-name">David</p>
+            <p class="race-time">00:00:00</p>
+            <p class="lap-type">Lap Type: Long</p>
+        </div>
+        <div class="bike-card" id="bike2">
+            <p class="race-position">2nd</p>
+            <p class="racer-name">Nathan</p>
+            <p class="race-time">00:00:00</p>
+            <p class="lap-type">Lap Type: Long</p>
+        </div>
+        <div class="bike-card" id="bike3">
+            <p class="race-position">3rd</p>
+            <p class="racer-name">Kayden</p>
+            <p class="race-time">00:00:00</p>
+            <p class="lap-type">Lap Type: Long</p>
+        </div>
+        <div class="bike-card" id="bike4">
+            <p class="race-position">4th</p>
+            <p class="racer-name">Alex</p>
+            <p class="race-time">00:00:00</p>
+            <p class="lap-type">Lap Type: Long</p>
+        </div>
+    </div>
+</body>
+</html>
